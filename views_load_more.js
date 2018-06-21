@@ -82,6 +82,22 @@
         .addClass('views-row-even')
         .end();
 
+    // Loop through the grouptitle headings and remove any duplicates
+    var groupTitles = wrapper.find(content_query).children().filter('.grouping-title');
+    if (groupTitles.length) {
+      var groupHeading = '';
+      groupTitles.each(function () {
+        var groupHeadingNext = $(this).text();
+        if (groupHeading == groupHeadingNext) {
+          $(this).remove();
+        }
+        else {
+          groupHeading = groupHeadingNext;
+          $(this).removeClass('views-row-first views-row-last views-row-odd views-row-even');
+        }
+      });
+    }
+    
     if (effect.showEffect != 'show') {
       wrapper.find(content_query).children(':not(:visible)')[effect.showEffect](effect.showSpeed);
     }
